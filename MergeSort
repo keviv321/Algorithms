@@ -16,6 +16,7 @@ class MergeSort1 <T extends Comparable<T> >{
 		this.display();
 	}
 
+
 	private void display() {
 		// TODO Auto-generated method stub
 		System.out.println(Arrays.toString(array));
