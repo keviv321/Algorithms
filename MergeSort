@@ -1,0 +1,89 @@
+package Algorithms;
+
+import java.util.Arrays;
+
+class MergeSort1 <T extends Comparable<T> >{
+	
+	private T array[] ;
+	@SuppressWarnings("unused")
+	private int size;
+
+	public MergeSort1(T[] array, int size) {
+		super();
+		this.array = array;
+		this.size = size;
+		this.sort(array);
+		this.display();
+	}
+
+	private void display() {
+		// TODO Auto-generated method stub
+		System.out.println(Arrays.toString(array));
+	}
+
+	@SuppressWarnings("hiding")
+	private <T extends Comparable<T>> void sort(T array[]) {
+		// TODO Auto-generated method stub
+		
+		if (array.length>1)
+		{
+			/*
+			 * Creating first Half of the array received "array"
+			 */
+			@SuppressWarnings("unchecked")
+			T firstHalf [] = (T[])new Comparable[array.length/2];
+			System.arraycopy(array, 0, firstHalf, 0, array.length /2);
+			sort(firstHalf);
+			
+			/*
+			 * Creating second Half of the array received as "array"
+			 */
+			int secondListLength = array.length-(array.length/2);
+			@SuppressWarnings("unchecked")
+			T secondHalf [] = (T[])new Comparable[secondListLength];
+			System.arraycopy(array, array.length / 2, secondHalf, 0, secondListLength);
+			sort(secondHalf);
+			
+			/*
+			 * Merging of the two divided arrays
+			 */
+			T newArray[] = merge(firstHalf, secondHalf , array);
+			System.arraycopy(newArray, 0, array, 0, newArray.length);
+			
+		}
+	}
+
+	@SuppressWarnings("hiding")
+	private <T extends Comparable<T>> T[] merge(T firstHalf[], T secondHalf[] , T array[]) {
+		// TODO Auto-generated method stub
+		
+		int firstHalfIndex = 0 , secondHalfIndex = 0 , arrayIndex = 0;
+		
+		
+		while (firstHalfIndex < firstHalf.length && secondHalfIndex < secondHalf.length)
+		{
+			
+			if (firstHalf[firstHalfIndex].compareTo(secondHalf[secondHalfIndex])<0)
+				array[arrayIndex++] = firstHalf[firstHalfIndex++];
+			
+			else if (firstHalf[firstHalfIndex].compareTo(secondHalf[secondHalfIndex])>0)
+				array[arrayIndex++] = secondHalf[secondHalfIndex++];
+		
+		}
+		
+		/*
+		 * adding elements if the firstHalf of the array is still having elements to be copied
+		 */
+		while (firstHalfIndex < firstHalf.length)
+			array[arrayIndex++] = firstHalf[firstHalfIndex++];
+		
+		/*
+		 * adding elements if the secondHalf of the array is still having elements to be copied
+ 		 */
+		while (secondHalfIndex < secondHalf.length)
+			array[arrayIndex++] = secondHalf[secondHalfIndex++];
+
+		return array;
+	}
+
+}
